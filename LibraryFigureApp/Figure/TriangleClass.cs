@@ -13,7 +13,7 @@ namespace LibraryFigureApp.Figure
     {
         public double[] arrayData { get; set; }
         public double HalfPerimeter { get; set; }
-        public bool EventCheck { get; set; } = true; // Определение осуществляется через логическое свойство
+        public bool EventCheck { get; set; } // Определение осуществляется через логическое свойство
 
         /// <summary>
         /// Работа через interface
@@ -32,29 +32,38 @@ namespace LibraryFigureApp.Figure
             }
             else
             {
-            #region Опредение является ли треугольник прямоугольным
+                #region Опредение является ли треугольник прямоугольным
                 if (Math.Pow(arrayData[0], 2) + Math.Pow(arrayData[1], 2) == Math.Pow(arrayData[2], 2))
                 {
-                    EventCheck = false;
+                    EventCheck = true;
+                    return ResultData();
                 }
-            #endregion
-
-                for (int i = 0; i < arrayData.Length; i++)
+                else
                 {
-                    HalfPerimeter += arrayData[i];
+                    EventCheck = false;
+                    #endregion
+                    return ResultData();
                 }
-                HalfPerimeter = HalfPerimeter / 2;
-                return Math.Sqrt(HalfPerimeter * (HalfPerimeter - arrayData[0]) *
-                                                            (HalfPerimeter - arrayData[1]) *
-                                                            (HalfPerimeter - arrayData[2]));
 
             }
         }
 
         public void ViewInfo()
         {
-            if (EventCheck != true) Console.WriteLine("Треугольник прямоугольный");
+            if (EventCheck != false) Console.WriteLine("Треугольник прямоугольный");
             Console.WriteLine(ResultArea());
+        }
+
+        private double ResultData() {
+
+            for (int i = 0; i < arrayData.Length; i++)
+            {
+                HalfPerimeter += arrayData[i];
+            }
+            HalfPerimeter = HalfPerimeter / 2;
+            return Math.Sqrt(HalfPerimeter * (HalfPerimeter - arrayData[0]) *
+                                                        (HalfPerimeter - arrayData[1]) *
+                                                        (HalfPerimeter - arrayData[2]));
         }
     }
 }
